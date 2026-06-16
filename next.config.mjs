@@ -9,17 +9,20 @@ const withPWA = withPWAInit({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Increase timeout for static generation (PDF and Charts can be heavy)
+  // Increase timeout for static generation
   staticPageGenerationTimeout: 1000,
   // Disable production source maps to save memory
   productionBrowserSourceMaps: false,
-  // Explicitly force webpack and silence the Turbopack warning
+  // Explicitly force webpack
   webpack: (config) => {
     return config;
   },
   // Ensure we don't use the experimental turbopack engine
   experimental: {
     turbopack: {},
+    // Limit concurrency to avoid crashing Vercel's small build machines
+    cpus: 1,
+    workerThreads: false,
   }
 };
 
