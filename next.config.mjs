@@ -9,13 +9,16 @@ const withPWA = withPWAInit({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Increase timeout for static generation (PDF and Charts can be heavy)
+  staticPageGenerationTimeout: 1000,
+  // Disable production source maps to save memory
+  productionBrowserSourceMaps: false,
   // Explicitly force webpack and silence the Turbopack warning
   webpack: (config) => {
     return config;
   },
   // Ensure we don't use the experimental turbopack engine
   experimental: {
-    // Some versions of Next.js 15 might need this empty to avoid the warning
     turbopack: {},
   }
 };
